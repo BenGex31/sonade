@@ -102,6 +102,7 @@ export default function LoanForm() {
           <NumberInput
             min={10000}
             max={900000}
+            description="min 10 000 / max 900 000"
             {...form.getInputProps("amount")}
             label="Montant"
             thousandSeparator=" "
