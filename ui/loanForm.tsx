@@ -85,6 +85,7 @@ export default function LoanForm() {
               label={(value) => (value > 1 ? `${value} ans` : `${value} an`)}
               min={1}
               max={25}
+              labelAlwaysOn
               {...form.getInputProps("duration")}
             />
           </Stack>
