@@ -3,13 +3,13 @@ import { Center, Container, Stack, Title } from "@mantine/core";
 
 export default function LoanSimulator() {
   return (
-    <Container>
-      <Center>
-        <Stack>
+    <Container fluid>
+      <Stack gap={"xl"}>
+        <Center>
           <Title size={"h1"}>Simulateur Emprunt</Title>
-          <LoanForm />
-        </Stack>
-      </Center>
+        </Center>
+        <LoanForm />
+      </Stack>
     </Container>
   );
 }
