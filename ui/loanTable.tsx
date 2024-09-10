@@ -7,7 +7,7 @@ type Props = {
 
 export default function LoanTable({ data }: Props) {
   return (
-    <Paper shadow="xs" p="md" mx={"xl"}>
+    <Paper shadow="xs" p="md">
       <Center>
         <Title order={2} mb="md">
           Tableau d&apos;amortissement
