@@ -6,7 +6,7 @@ export default function LoanSimulator() {
     <Container>
       <Center>
         <Stack>
-          <Title>Simulateur Emprunt</Title>
+          <Title size={"h1"}>Simulateur Emprunt</Title>
           <LoanForm />
         </Stack>
       </Center>
