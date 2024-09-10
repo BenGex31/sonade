@@ -1,18 +1,11 @@
 "use client";
 
 import { Loan, LoanTableRow } from "@/lib/definitions";
-import {
-  NumberInput,
-  Flex,
-  Slider,
-  Stack,
-  Text,
-  Title,
-  List,
-} from "@mantine/core";
+import { NumberInput, Flex, Slider, Stack, Text } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import LoanTable from "./loanTable";
 import { useMemo } from "react";
+import Loandetails from "./loanDetails";
 
 export default function LoanForm() {
   const form = useForm<Loan>({
@@ -140,31 +133,15 @@ export default function LoanForm() {
             description="min 0% / max 3%"
           />
         </Stack>
-        <Stack w={350} gap={"xl"}>
-          <Stack gap={"2px"}>
-            <Title size={"h3"}>
-              Mensualités: {totalMonthlyPayments()} € / mois
-            </Title>
-            <List withPadding>
-              <List.Item>
-                dont Capital moyen: {averageCapital()} € / mois
-              </List.Item>
-              <List.Item>
-                dont Intérêts moyens: {monthlyInterests()} € / mois
-              </List.Item>
-              <List.Item>
-                dont Assurance: {monthlyInsurance()} € / mois
-              </List.Item>
-            </List>
-          </Stack>
-          <Stack gap={"2px"}>
-            <Title size={"h3"}>Cout total: {totalCostAmount()} €</Title>
-            <List withPadding>
-              <List.Item>dont Intérêts: {totalCostInterests()} €</List.Item>
-              <List.Item>dont Assurance: {totalInsuranceCost()} €</List.Item>
-            </List>
-          </Stack>
-        </Stack>
+        <Loandetails
+          totalMonthlyPayments={totalMonthlyPayments()}
+          averageCapital={averageCapital()}
+          monthlyInterests={monthlyInterests()}
+          monthlyInsurance={monthlyInsurance()}
+          totalCostAmount={totalCostAmount()}
+          totalCostInterests={totalCostInterests()}
+          totalInsuranceCost={totalInsuranceCost()}
+        />
       </Flex>
       <LoanTable data={loanDataRows} />
     </form>
