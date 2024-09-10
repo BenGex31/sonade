@@ -41,6 +41,7 @@ export default function LoanForm() {
           suffix="%"
           decimalScale={2}
           decimalSeparator=","
+          description="min 0% / max 8%"
         />
         <NumberInput
           min={0}
@@ -50,6 +51,7 @@ export default function LoanForm() {
           suffix="%"
           decimalScale={2}
           decimalSeparator=","
+          description="min 0% / max 3%"
         />
       </Stack>
     </form>
