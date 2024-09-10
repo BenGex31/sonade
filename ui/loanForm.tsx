@@ -1,6 +1,6 @@
 "use client";
 
-import { Loan } from "@/lib/definitions";
+import { Loan, LoanTableRow } from "@/lib/definitions";
 import {
   NumberInput,
   Flex,
@@ -11,6 +11,8 @@ import {
   List,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
+import LoanTable from "./loanTable";
+import { useMemo } from "react";
 
 export default function LoanForm() {
   const form = useForm<Loan>({
@@ -66,6 +68,34 @@ export default function LoanForm() {
   function totalInsuranceCost(): number {
     return Math.round(monthlyInsurance() * numberOfPayments);
   }
+
+  const loanDataRows: LoanTableRow[] = useMemo(() => {
+    const loanArray: LoanTableRow[] = [];
+    let remainingBalance = amount;
+
+    for (let i = 1; i <= numberOfPayments; i++) {
+      const interestPayment = remainingBalance * monthlyInterestRate;
+      const principalPayment = monthlyPayment - interestPayment;
+      remainingBalance -= principalPayment;
+
+      if (i % 12 === 0 || i === numberOfPayments) {
+        loanArray.push({
+          year: i / 12,
+          annuity: Math.round((monthlyPayment + monthlyInsurance()) * 12),
+          interest: Math.round(interestPayment * 12),
+          insurance: Math.round(monthlyInsurance() * 12),
+          remainingCapital: Math.round(remainingBalance),
+        });
+      }
+    }
+    return loanArray;
+  }, [
+    numberOfPayments,
+    amount,
+    monthlyInsurance,
+    monthlyInterestRate,
+    monthlyPayment,
+  ]);
 
   return (
     <form>
@@ -136,6 +166,7 @@ export default function LoanForm() {
           </Stack>
         </Stack>
       </Flex>
+      <LoanTable data={loanDataRows} />
     </form>
   );
 }
