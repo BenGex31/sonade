@@ -1,10 +1,14 @@
-import { Button } from "@mantine/core";
+import { Button, Container, Flex } from "@mantine/core";
 import Link from "next/link";
 
 export default function Home() {
   return (
-    <Link href={"/simulateur-emprunt"}>
-      <Button>Simulateur emprunt</Button>
-    </Link>
+    <Container fluid>
+      <Flex justify={"center"} mt={"xl"}>
+        <Link href={"/simulateur-emprunt"}>
+          <Button>Simulateur emprunt</Button>
+        </Link>
+      </Flex>
+    </Container>
   );
 }
