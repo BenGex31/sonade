@@ -1,13 +1,17 @@
 import LoanForm from "@/ui/loanForm";
-import { Center, Container, Stack, Title } from "@mantine/core";
+import { Group, Container, Stack, Title, Button } from "@mantine/core";
+import Link from "next/link";
 
 export default function LoanSimulator() {
   return (
     <Container fluid>
       <Stack gap={"xl"}>
-        <Center>
+        <Group justify="center">
+          <Link href={"/"}>
+            <Button variant="outline">Retour</Button>
+          </Link>
           <Title size={"h1"}>Simulateur Emprunt</Title>
-        </Center>
+        </Group>
         <LoanForm />
       </Stack>
     </Container>
