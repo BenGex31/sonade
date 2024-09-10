@@ -92,7 +92,12 @@ export default function LoanForm() {
 
   return (
     <form>
-      <Flex justify="space-evenly">
+      <Flex
+        gap={"xl"}
+        direction={{ base: "column", xs: "row" }}
+        justify={{ base: "center", xs: "space-evenly" }}
+        align={"center"}
+      >
         <Stack w={350}>
           <NumberInput
             min={10000}
