@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import { MantineProvider, ColorSchemeScript } from "@mantine/core";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -24,9 +25,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="fr">
+      <head>
+        <ColorSchemeScript />
+      </head>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        {children}
+        <MantineProvider>{children}</MantineProvider>
       </body>
     </html>
   );
