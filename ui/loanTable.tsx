@@ -27,10 +27,12 @@ export default function LoanTable({ data }: Props) {
           {data.map((row) => (
             <Table.Tr key={row.year}>
               <Table.Td>{row.year}</Table.Td>
-              <Table.Td>{row.annuity} €</Table.Td>
-              <Table.Td>{row.interest} €</Table.Td>
-              <Table.Td>{row.insurance} €</Table.Td>
-              <Table.Td>{row.remainingCapital} €</Table.Td>
+              <Table.Td>{row.annuity.toLocaleString("fr-FR")} €</Table.Td>
+              <Table.Td>{row.interest.toLocaleString("fr-FR")} €</Table.Td>
+              <Table.Td>{row.insurance.toLocaleString("fr-FR")} €</Table.Td>
+              <Table.Td>
+                {row.remainingCapital.toLocaleString("fr-FR")} €
+              </Table.Td>
             </Table.Tr>
           ))}
         </Table.Tbody>
