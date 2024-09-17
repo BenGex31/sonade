@@ -36,9 +36,9 @@ export default function LoanForm() {
     return Math.round(averageInterestCost);
   }
 
-  function monthlyInsurance(): number {
+  const monthlyInsurance = useMemo(() => {
     return Math.round(monthlyInsuranceRate);
-  }
+  }, [monthlyInsuranceRate]);
 
   function totalMonthlyPayments(): number {
     return Math.round(
@@ -46,7 +46,7 @@ export default function LoanForm() {
         100 /
         12 /
         (1 - Math.pow(1 + monthlyInterestRate, -numberOfPayments)) +
-        monthlyInsurance()
+        monthlyInsurance
     );
   }
 
@@ -59,7 +59,7 @@ export default function LoanForm() {
   }
 
   function totalInsuranceCost(): number {
-    return Math.round(monthlyInsurance() * numberOfPayments);
+    return Math.round(monthlyInsurance * numberOfPayments);
   }
 
   const loanDataRows: LoanTableRow[] = useMemo(() => {
@@ -74,9 +74,9 @@ export default function LoanForm() {
       if (i % 12 === 0 || i === numberOfPayments) {
         loanArray.push({
           year: i / 12,
-          annuity: Math.round((monthlyPayment + monthlyInsurance()) * 12),
+          annuity: Math.round((monthlyPayment + monthlyInsurance) * 12),
           interest: Math.round(interestPayment * 12),
-          insurance: Math.round(monthlyInsurance() * 12),
+          insurance: Math.round(monthlyInsurance * 12),
           remainingCapital: Math.round(remainingBalance),
         });
       }
@@ -143,7 +143,7 @@ export default function LoanForm() {
           totalMonthlyPayments={totalMonthlyPayments()}
           averageCapital={averageCapital()}
           monthlyInterests={monthlyInterests()}
-          monthlyInsurance={monthlyInsurance()}
+          monthlyInsurance={monthlyInsurance}
           totalCostAmount={totalCostAmount()}
           totalCostInterests={totalCostInterests()}
           totalInsuranceCost={totalInsuranceCost()}
