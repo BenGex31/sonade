@@ -1,7 +1,7 @@
 "use client";
 
 import { Loan, LoanTableRow } from "@/lib/definitions";
-import { NumberInput, Flex, Slider, Stack, Text } from "@mantine/core";
+import { NumberInput, Flex, Slider, Stack, Text, Space } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import LoanTable from "./loanTable";
 import { useMemo } from "react";
@@ -149,6 +149,7 @@ export default function LoanForm() {
           totalInsuranceCost={totalInsuranceCost()}
         />
       </Flex>
+      <Space h="md" />
       <LoanTable data={loanDataRows} />
     </form>
   );
