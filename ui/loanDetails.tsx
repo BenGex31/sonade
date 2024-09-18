@@ -1,4 +1,4 @@
-import { List, Stack, Title } from "@mantine/core";
+import { List, Stack, Title, NumberFormatter } from "@mantine/core";
 
 type Props = {
   totalMonthlyPayments: number;
@@ -23,32 +23,86 @@ export default function Loandetails({
     <Stack w={350} gap={"xl"}>
       <Stack gap={"2px"}>
         <Title size={"h3"}>
-          Mensualités: {totalMonthlyPayments.toLocaleString("fr-FR")} € / mois
+          Mensualités:{" "}
+          {
+            <NumberFormatter
+              thousandSeparator=" "
+              decimalSeparator=","
+              value={totalMonthlyPayments}
+              suffix=" € / mois"
+            />
+          }
         </Title>
         <List withPadding>
           <List.Item>
-            dont Capital moyen: {averageCapital.toLocaleString("fr-FR")} € /
-            mois
+            dont Capital moyen:{" "}
+            {
+              <NumberFormatter
+                thousandSeparator=" "
+                decimalSeparator=","
+                value={averageCapital}
+                suffix=" € / mois"
+              />
+            }
           </List.Item>
           <List.Item>
-            dont Intérêts moyens: {monthlyInterests.toLocaleString("fr-FR")} € /
-            mois
+            dont Intérêts moyens:{" "}
+            {
+              <NumberFormatter
+                thousandSeparator=" "
+                decimalSeparator=","
+                value={monthlyInterests}
+                suffix=" € / mois"
+              />
+            }
           </List.Item>
           <List.Item>
-            dont Assurance: {monthlyInsurance.toLocaleString("fr-FR")} € / mois
+            dont Assurance:{" "}
+            {
+              <NumberFormatter
+                thousandSeparator=" "
+                decimalSeparator=","
+                value={monthlyInsurance}
+                suffix=" € / mois"
+              />
+            }
           </List.Item>
         </List>
       </Stack>
       <Stack gap={"2px"}>
         <Title size={"h3"}>
-          Cout total: {totalCostAmount.toLocaleString("fr-FR")} €
+          Cout total:{" "}
+          {
+            <NumberFormatter
+              thousandSeparator=" "
+              decimalSeparator=","
+              value={totalCostAmount}
+              suffix=" €"
+            />
+          }
         </Title>
         <List withPadding>
           <List.Item>
-            dont Intérêts: {totalCostInterests.toLocaleString("fr-FR")} €
+            dont Intérêts:{" "}
+            {
+              <NumberFormatter
+                thousandSeparator=" "
+                decimalSeparator=","
+                value={totalCostInterests}
+                suffix=" €"
+              />
+            }
           </List.Item>
           <List.Item>
-            dont Assurance: {totalInsuranceCost.toLocaleString("fr-FR")} €
+            dont Assurance:{" "}
+            {
+              <NumberFormatter
+                thousandSeparator=" "
+                decimalSeparator=","
+                value={totalInsuranceCost}
+                suffix=" €"
+              />
+            }
           </List.Item>
         </List>
       </Stack>
