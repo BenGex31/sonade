@@ -104,13 +104,21 @@ export default function LoanForm() {
             max={900000}
             description="min 10 000 / max 900 000"
             {...form.getInputProps("amount")}
-            label="Montant"
+            label="Montant à emprunter"
             thousandSeparator=" "
             suffix=" €"
+            styles={{
+              label: {
+                fontWeight: "bold",
+              },
+            }}
           />
           <Stack gap={"1px"}>
-            <Text size="sm">Durée</Text>
+            <Text fw={"bold"} size="sm">
+              Durée
+            </Text>
             <Slider
+              color="blue"
               label={(value) => (value > 1 ? `${value} ans` : `${value} an`)}
               min={1}
               max={25}
@@ -127,6 +135,11 @@ export default function LoanForm() {
             decimalScale={2}
             decimalSeparator=","
             description="min 0% / max 8%"
+            styles={{
+              label: {
+                fontWeight: "bold",
+              },
+            }}
           />
           <NumberInput
             min={0}
@@ -137,6 +150,11 @@ export default function LoanForm() {
             decimalScale={2}
             decimalSeparator=","
             description="min 0% / max 3%"
+            styles={{
+              label: {
+                fontWeight: "bold",
+              },
+            }}
           />
         </Stack>
         <Loandetails
