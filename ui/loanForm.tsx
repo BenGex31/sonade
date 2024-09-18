@@ -105,7 +105,7 @@ export default function LoanForm() {
   ]);
 
   function handleLoandetailsOpen(): void {
-    modals.open({
+    modals.openConfirmModal({
       title: (
         <Title size="h1" c={"blue"}>
           Détail emprunt
@@ -122,16 +122,14 @@ export default function LoanForm() {
             totalCostInterests={totalCostInterests()}
             totalInsuranceCost={totalInsuranceCost()}
           />
-          <Center>
-            <Button variant="outline" w={200} onClick={generatePDF}>
-              Générer PDF
-            </Button>
-          </Center>
           <LoanTable data={loanDataRows} />
         </Stack>
       ),
       size: "70%",
       padding: "xl",
+      withCloseButton: false,
+      onConfirm: () => generatePDF(),
+      labels: { confirm: "Générer PDF", cancel: "Fermer" },
     });
   }
 
