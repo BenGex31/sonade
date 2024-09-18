@@ -1,11 +1,21 @@
 "use client";
 
 import { Loan, LoanTableRow } from "@/lib/definitions";
-import { NumberInput, Flex, Slider, Stack, Text, Space } from "@mantine/core";
+import {
+  NumberInput,
+  Slider,
+  Stack,
+  Text,
+  Paper,
+  Center,
+  Button,
+  Title,
+} from "@mantine/core";
 import { useForm } from "@mantine/form";
 import LoanTable from "./loanTable";
 import { useMemo } from "react";
 import Loandetails from "./loanDetails";
+import { modals } from "@mantine/modals";
 
 export default function LoanForm() {
   const form = useForm<Loan>({
@@ -90,85 +100,99 @@ export default function LoanForm() {
     monthlyPayment,
   ]);
 
+  function handleLoandetailsOpen(): void {
+    modals.openConfirmModal({
+      title: (
+        <Title size="h3" c={"blue"}>
+          Détail emprunt
+        </Title>
+      ),
+      children: (
+        <Stack gap={"xl"}>
+          <Loandetails
+            totalMonthlyPayments={totalMonthlyPayments()}
+            averageCapital={averageCapital()}
+            monthlyInterests={monthlyInterests()}
+            monthlyInsurance={monthlyInsurance}
+            totalCostAmount={totalCostAmount()}
+            totalCostInterests={totalCostInterests()}
+            totalInsuranceCost={totalInsuranceCost()}
+          />
+          <LoanTable data={loanDataRows} />
+        </Stack>
+      ),
+      size: "70%",
+      padding: "xl",
+      withCloseButton: false,
+    });
+  }
+
   return (
     <form>
-      <Flex
-        gap={"xl"}
-        direction={{ base: "column", xs: "row" }}
-        justify={{ base: "center", xs: "space-evenly" }}
-        align={"center"}
-      >
-        <Stack w={350}>
-          <NumberInput
-            min={10000}
-            max={900000}
-            description="min 10 000 / max 900 000"
-            {...form.getInputProps("amount")}
-            label="Montant à emprunter"
-            thousandSeparator=" "
-            suffix=" €"
-            styles={{
-              label: {
-                fontWeight: "bold",
-              },
-            }}
-          />
-          <Stack gap={"1px"}>
-            <Text fw={"bold"} size="sm">
-              Durée
-            </Text>
-            <Slider
-              color="blue"
-              label={(value) => (value > 1 ? `${value} ans` : `${value} an`)}
-              min={1}
-              max={25}
-              labelAlwaysOn
-              {...form.getInputProps("duration")}
+      <Center>
+        <Paper shadow="md" p="xl">
+          <Stack w={350}>
+            <NumberInput
+              min={10000}
+              max={900000}
+              description="min 10 000 / max 900 000"
+              {...form.getInputProps("amount")}
+              label="Montant à emprunter"
+              thousandSeparator=" "
+              suffix=" €"
+              styles={{
+                label: {
+                  fontWeight: "bold",
+                },
+              }}
             />
+            <Stack gap={"1px"}>
+              <Text fw={"bold"} size="sm">
+                Durée
+              </Text>
+              <Slider
+                color="blue"
+                label={(value) => (value > 1 ? `${value} ans` : `${value} an`)}
+                min={1}
+                max={25}
+                labelAlwaysOn
+                {...form.getInputProps("duration")}
+              />
+            </Stack>
+            <NumberInput
+              min={0}
+              max={8}
+              {...form.getInputProps("rate")}
+              label="Taux emprunt"
+              suffix="%"
+              decimalScale={2}
+              decimalSeparator=","
+              description="min 0% / max 8%"
+              styles={{
+                label: {
+                  fontWeight: "bold",
+                },
+              }}
+            />
+            <NumberInput
+              min={0}
+              max={3}
+              {...form.getInputProps("insurance")}
+              label="Taux assurance"
+              suffix="%"
+              decimalScale={2}
+              decimalSeparator=","
+              description="min 0% / max 3%"
+              styles={{
+                label: {
+                  fontWeight: "bold",
+                },
+              }}
+            />
+            <Button onClick={handleLoandetailsOpen}>Calculer</Button>
           </Stack>
-          <NumberInput
-            min={0}
-            max={8}
-            {...form.getInputProps("rate")}
-            label="Taux emprunt"
-            suffix="%"
-            decimalScale={2}
-            decimalSeparator=","
-            description="min 0% / max 8%"
-            styles={{
-              label: {
-                fontWeight: "bold",
-              },
-            }}
-          />
-          <NumberInput
-            min={0}
-            max={3}
-            {...form.getInputProps("insurance")}
-            label="Taux assurance"
-            suffix="%"
-            decimalScale={2}
-            decimalSeparator=","
-            description="min 0% / max 3%"
-            styles={{
-              label: {
-                fontWeight: "bold",
-              },
-            }}
-          />
-        </Stack>
-        <Loandetails
-          totalMonthlyPayments={totalMonthlyPayments()}
-          averageCapital={averageCapital()}
-          monthlyInterests={monthlyInterests()}
-          monthlyInsurance={monthlyInsurance}
-          totalCostAmount={totalCostAmount()}
-          totalCostInterests={totalCostInterests()}
-          totalInsuranceCost={totalInsuranceCost()}
-        />
-      </Flex>
-      <Space h="md" />
-      <LoanTable data={loanDataRows} />
+        </Paper>
+      </Center>
     </form>
   );
 }
