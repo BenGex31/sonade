@@ -13,9 +13,11 @@ import {
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import LoanTable from "./loanTable";
-import { useMemo } from "react";
+import { useMemo, useRef } from "react";
 import Loandetails from "./loanDetails";
 import { modals } from "@mantine/modals";
+import jsPDF from "jspdf";
+import html2canvas from "html2canvas";
 
 export default function LoanForm() {
   const form = useForm<Loan>({
@@ -26,6 +28,8 @@ export default function LoanForm() {
       insurance: 0.3,
     },
   });
+
+  const contentRef = useRef<HTMLDivElement | null>(null);
 
   const amount = form.values.amount;
   const monthlyInterestRate = form.values.rate / 100 / 12;
@@ -103,12 +107,12 @@ export default function LoanForm() {
   function handleLoandetailsOpen(): void {
     modals.open({
       title: (
-        <Title size="h3" c={"blue"}>
+        <Title size="h1" c={"blue"}>
           Détail emprunt
         </Title>
       ),
       children: (
-        <Stack gap={"xl"}>
+        <Stack gap={"xl"} ref={contentRef}>
           <Loandetails
             totalMonthlyPayments={totalMonthlyPayments()}
             averageCapital={averageCapital()}
@@ -118,13 +122,49 @@ export default function LoanForm() {
             totalCostInterests={totalCostInterests()}
             totalInsuranceCost={totalInsuranceCost()}
           />
+          <Center>
+            <Button variant="outline" w={200} onClick={generatePDF}>
+              Générer PDF
+            </Button>
+          </Center>
           <LoanTable data={loanDataRows} />
         </Stack>
       ),
       size: "70%",
       padding: "xl",
-      withCloseButton: false,
     });
+  }
+
+  async function generatePDF() {
+    const element = contentRef.current;
+
+    if (!element) return;
+
+    // Capture l'élément HTML sous forme d'image
+    const canvas = await html2canvas(element);
+    const imgData = canvas.toDataURL("image/png");
+
+    // Crée une instance jsPDF
+    const pdf = new jsPDF("p", "mm", "a4");
+    const imgWidth = 210; // Largeur A4 en millimètres
+    const pageHeight = 297; // Hauteur A4 en millimètres
+    const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+    let heightLeft = imgHeight;
+    let position = 0;
+
+    // Ajoute l'image au PDF, gère les pages multiples si nécessaire
+    pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
+    heightLeft -= pageHeight;
+
+    while (heightLeft > 0) {
+      position = heightLeft - imgHeight;
+      pdf.addPage();
+      pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
+    }
+
+    pdf.save("simulateur-emprunt.pdf");
   }
 
   return (
