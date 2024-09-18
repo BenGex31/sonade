@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function LoanSimulator() {
   return (
-    <Container fluid>
+    <Container>
       <Stack gap={"xl"} mb={"lg"}>
         <Group justify="center">
           <Link href={"/"}>
