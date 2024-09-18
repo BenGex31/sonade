@@ -1,4 +1,4 @@
-import { List, Stack, Title, NumberFormatter, SimpleGrid } from "@mantine/core";
+import { List, Stack, Title, NumberFormatter, Flex } from "@mantine/core";
 
 type Props = {
   totalMonthlyPayments: number;
@@ -20,7 +20,7 @@ export default function Loandetails({
   totalInsuranceCost,
 }: Props) {
   return (
-    <SimpleGrid cols={2}>
+    <Flex justify={"space-around"} mt={"md"}>
       <Stack gap={"2px"}>
         <Title size={"h3"}>
           Mensualités:{" "}
@@ -106,6 +106,6 @@ export default function Loandetails({
           </List.Item>
         </List>
       </Stack>
-    </SimpleGrid>
+    </Flex>
   );
 }
