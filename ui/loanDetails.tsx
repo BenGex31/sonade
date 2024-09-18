@@ -20,7 +20,12 @@ export default function Loandetails({
   totalInsuranceCost,
 }: Props) {
   return (
-    <Flex justify={"space-around"} mt={"md"}>
+    <Flex
+      justify={"space-around"}
+      mt={"md"}
+      direction={{ base: "column", sm: "row" }}
+      gap={{ base: "sm", md: "lg" }}
+    >
       <Stack gap={"2px"}>
         <Title size={"h3"}>
           Mensualités:{" "}
