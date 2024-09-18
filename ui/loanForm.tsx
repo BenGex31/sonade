@@ -101,7 +101,7 @@ export default function LoanForm() {
   ]);
 
   function handleLoandetailsOpen(): void {
-    modals.openConfirmModal({
+    modals.open({
       title: (
         <Title size="h3" c={"blue"}>
           Détail emprunt
