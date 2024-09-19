@@ -22,12 +22,11 @@ export default function Loandetails({
   return (
     <Flex
       justify={"space-around"}
-      mt={"md"}
       direction={{ base: "column", sm: "row" }}
       gap={{ base: "sm", md: "lg" }}
     >
       <Stack gap={"2px"}>
-        <Title size={"h3"}>
+        <Title size={"h4"}>
           Mensualités:{" "}
           {
             <NumberFormatter
@@ -75,7 +74,7 @@ export default function Loandetails({
         </List>
       </Stack>
       <Stack gap={"2px"}>
-        <Title size={"h3"}>
+        <Title size={"h4"}>
           Cout total:{" "}
           {
             <NumberFormatter
