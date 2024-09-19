@@ -13,9 +13,15 @@ export default function LoanTable({ data }: Props) {
           Tableau d&apos;amortissement
         </Title>
       </Center>
-      <Table highlightOnHover>
+      <Table>
         <Table.Thead>
-          <Table.Tr style={{ backgroundColor: "#2196f3", color: "white" }}>
+          <Table.Tr
+            style={{
+              backgroundColor: "#2196f3",
+              color: "white",
+              textAlign: "center",
+            }}
+          >
             <Table.Th>Années</Table.Th>
             <Table.Th>Annuités</Table.Th>
             <Table.Th>Intérêts</Table.Th>
@@ -25,7 +31,7 @@ export default function LoanTable({ data }: Props) {
         </Table.Thead>
         <Table.Tbody>
           {data.map((row) => (
-            <Table.Tr key={row.year}>
+            <Table.Tr key={row.year} style={{ textAlign: "center" }}>
               <Table.Td>{row.year}</Table.Td>
               <Table.Td>{row.annuity.toLocaleString("fr-FR")} €</Table.Td>
               <Table.Td>{row.interest.toLocaleString("fr-FR")} €</Table.Td>
