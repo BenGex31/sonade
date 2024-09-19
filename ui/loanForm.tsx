@@ -110,44 +110,49 @@ export default function LoanForm() {
 
   function handleLoandetailsOpen(): void {
     modals.openConfirmModal({
-      title: (
-        <Group>
-          <Title size="h1">Détail emprunt</Title>
-          <Tooltip label="Montant" color="orange" withArrow position="bottom">
-            <Badge>
-              <NumberFormatter
-                thousandSeparator=" "
-                decimalSeparator=","
-                value={form.values.amount}
-                suffix=" €"
-              />
-            </Badge>
-          </Tooltip>
-          <Badge>
-            {form.values.duration > 1
-              ? `${form.values.duration} ans`
-              : `${form.values.duration} an`}
-          </Badge>
-          <Tooltip
-            label="Taux emprunt"
-            color="orange"
-            withArrow
-            position="bottom"
-          >
-            <Badge>{`${form.values.rate} %`}</Badge>
-          </Tooltip>
-          <Tooltip
-            label="Taux assurance"
-            color="orange"
-            withArrow
-            position="bottom"
-          >
-            <Badge>{`${form.values.insurance} %`}</Badge>
-          </Tooltip>
-        </Group>
-      ),
+      title: <Title size="h2">Détail emprunt</Title>,
       children: (
-        <Stack gap={"xl"} ref={contentRef}>
+        <Stack gap={"lg"} ref={contentRef} align="stretch">
+          <Center>
+            <Group mt={"md"} justify="center">
+              <Tooltip
+                label="Montant"
+                color="orange"
+                withArrow
+                position="bottom"
+              >
+                <Badge size="lg">
+                  <NumberFormatter
+                    thousandSeparator=" "
+                    decimalSeparator=","
+                    value={form.values.amount}
+                    suffix=" €"
+                  />
+                </Badge>
+              </Tooltip>
+              <Badge size="lg">
+                {form.values.duration > 1
+                  ? `${form.values.duration} ans`
+                  : `${form.values.duration} an`}
+              </Badge>
+              <Tooltip
+                label="Taux emprunt"
+                color="orange"
+                withArrow
+                position="bottom"
+              >
+                <Badge size="lg">{`${form.values.rate} %`}</Badge>
+              </Tooltip>
+              <Tooltip
+                label="Taux assurance"
+                color="orange"
+                withArrow
+                position="bottom"
+              >
+                <Badge size="lg">{`${form.values.insurance} %`}</Badge>
+              </Tooltip>
+            </Group>
+          </Center>
           <Loandetails
             totalMonthlyPayments={totalMonthlyPayments()}
             averageCapital={averageCapital()}
@@ -160,7 +165,7 @@ export default function LoanForm() {
           <LoanTable data={loanDataRows} />
         </Stack>
       ),
-      size: "70%",
+      size: "90%",
       padding: "xl",
       withCloseButton: false,
       onConfirm: () => generatePDF(),
