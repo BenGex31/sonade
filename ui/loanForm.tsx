@@ -114,7 +114,7 @@ export default function LoanForm() {
       children: (
         <Stack gap={"lg"} ref={contentRef} align="stretch">
           <Center>
-            <Group mt={"md"} justify="center">
+            <Group gap={"xl"} mt={"md"} justify="center">
               <Tooltip
                 label="Montant"
                 color="orange"
@@ -135,15 +135,11 @@ export default function LoanForm() {
                   ? `${form.values.duration} ans`
                   : `${form.values.duration} an`}
               </Badge>
-              <Tooltip
-                label="Taux emprunt"
-                color="orange"
-                withArrow
-                position="bottom"
-              >
+              <Tooltip opened label="Taux emprunt" color="orange" withArrow>
                 <Badge size="lg">{`${form.values.rate} %`}</Badge>
               </Tooltip>
               <Tooltip
+                opened
                 label="Taux assurance"
                 color="orange"
                 withArrow
