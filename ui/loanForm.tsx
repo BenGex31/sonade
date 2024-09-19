@@ -10,6 +10,10 @@ import {
   Center,
   Button,
   Title,
+  Group,
+  Badge,
+  NumberFormatter,
+  Tooltip,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import LoanTable from "./loanTable";
@@ -107,9 +111,40 @@ export default function LoanForm() {
   function handleLoandetailsOpen(): void {
     modals.openConfirmModal({
       title: (
-        <Title size="h1" c={"blue"}>
-          Détail emprunt
-        </Title>
+        <Group>
+          <Title size="h1">Détail emprunt</Title>
+          <Tooltip label="Montant" color="orange" withArrow position="bottom">
+            <Badge>
+              <NumberFormatter
+                thousandSeparator=" "
+                decimalSeparator=","
+                value={form.values.amount}
+                suffix=" €"
+              />
+            </Badge>
+          </Tooltip>
+          <Badge>
+            {form.values.duration > 1
+              ? `${form.values.duration} ans`
+              : `${form.values.duration} an`}
+          </Badge>
+          <Tooltip
+            label="Taux emprunt"
+            color="orange"
+            withArrow
+            position="bottom"
+          >
+            <Badge>{`${form.values.rate} %`}</Badge>
+          </Tooltip>
+          <Tooltip
+            label="Taux assurance"
+            color="orange"
+            withArrow
+            position="bottom"
+          >
+            <Badge>{`${form.values.insurance} %`}</Badge>
+          </Tooltip>
+        </Group>
       ),
       children: (
         <Stack gap={"xl"} ref={contentRef}>
